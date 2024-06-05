@@ -11,7 +11,7 @@ function setupServer() {
     try {
       const contacts = await Contact.find();
       res.status(200).json({
-        status: 'success',
+        status: '200',
         message: 'Successfully found contacts!',
         data: contacts,
       });
@@ -29,18 +29,18 @@ function setupServer() {
       const contact = await Contact.findById(req.params.contactId);
       if (!contact) {
         return res.status(404).json({
-          status: 'error',
+          status: '404',
           message: `Contact not found with id ${req.params.contactId}`,
         });
       }
       res.status(200).json({
-        status: 'success',
+        status: '200',
         message: `Successfully found contact with id ${req.params.contactId}!`,
         data: contact,
       });
     } catch (error) {
       res.status(500).json({
-        status: 'error',
+        status: '500',
         message: 'Error fetching contact',
         data: error,
       });
