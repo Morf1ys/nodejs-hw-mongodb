@@ -12,7 +12,7 @@ export const getAllContacts = ctrlWrapper(async (req, res, next) => {
     isFavourite,
   } = req.query;
 
-  const filter = {};
+  const filter = { userId: req.user._id };
   if (type) filter.contactType = type;
   if (isFavourite !== undefined) filter.isFavourite = isFavourite === 'true';
 
@@ -41,7 +41,10 @@ export const getAllContacts = ctrlWrapper(async (req, res, next) => {
 });
 
 export const getContactById = ctrlWrapper(async (req, res, next) => {
-  const contact = await Contact.findById(req.params.contactId);
+  const contact = await Contact.findOne({
+    _id: req.params.contactId,
+    userId: req.user._id,
+  });
   if (!contact) {
     return next(createError(404, 'Contact not found'));
   }
@@ -63,6 +66,7 @@ export const createContact = ctrlWrapper(async (req, res, next) => {
     email,
     isFavourite,
     contactType,
+    userId: req.user._id,
   });
   await contact.save();
   res.status(201).json({
@@ -73,8 +77,8 @@ export const createContact = ctrlWrapper(async (req, res, next) => {
 });
 
 export const updateContact = ctrlWrapper(async (req, res, next) => {
-  const contact = await Contact.findByIdAndUpdate(
-    req.params.contactId,
+  const contact = await Contact.findOneAndUpdate(
+    { _id: req.params.contactId, userId: req.user._id },
     req.body,
     { new: true },
   );
@@ -89,7 +93,10 @@ export const updateContact = ctrlWrapper(async (req, res, next) => {
 });
 
 export const deleteContact = ctrlWrapper(async (req, res, next) => {
-  const contact = await Contact.findByIdAndDelete(req.params.contactId);
+  const contact = await Contact.findOneAndDelete({
+    _id: req.params.contactId,
+    userId: req.user._id,
+  });
   if (!contact) {
     return next(createError(404, 'Contact not found'));
   }
