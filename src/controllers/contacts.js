@@ -1,5 +1,4 @@
 import {
-<<<<<<< Updated upstream
   createContact as createContactService,
   getAllContacts as getAllContactsService,
   getContactById as getContactByIdService,
@@ -56,27 +55,6 @@ export const getContactById = ctrlWrapper(async (req, res, next) => {
   if (!contact) {
     return next(createError(404, 'Contact not found'));
   }
-=======
-  createContact,
-  getAllContacts,
-  getContactById,
-  updateContact,
-  deleteContact,
-} from '../services/contactServices.js';
-import { ctrlWrapper } from './ctrlWrapper.js';
-
-export const getAllContactsController = ctrlWrapper(async (req, res, next) => {
-  const result = await getAllContacts(req.user._id, req.query);
-  res.status(200).json({
-    status: 200,
-    message: 'Successfully found contacts!',
-    data: result,
-  });
-});
-
-export const getContactByIdController = ctrlWrapper(async (req, res, next) => {
-  const contact = await getContactById(req.params.contactId, req.user._id);
->>>>>>> Stashed changes
   res.status(200).json({
     status: 200,
     message: `Successfully found contact with id ${req.params.contactId}!`,
@@ -84,7 +62,6 @@ export const getContactByIdController = ctrlWrapper(async (req, res, next) => {
   });
 });
 
-<<<<<<< Updated upstream
 export const createContact = ctrlWrapper(async (req, res, next) => {
   const { name, phoneNumber, email, isFavourite, contactType } = req.body;
   if (!name || !phoneNumber) {
@@ -99,10 +76,6 @@ export const createContact = ctrlWrapper(async (req, res, next) => {
     userId: req.user._id,
   };
   const contact = await createContactService(contactData, req.file);
-=======
-export const createContactController = ctrlWrapper(async (req, res, next) => {
-  const contact = await createContact(req.body, req.user._id);
->>>>>>> Stashed changes
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -110,22 +83,16 @@ export const createContactController = ctrlWrapper(async (req, res, next) => {
   });
 });
 
-<<<<<<< Updated upstream
 export const updateContact = ctrlWrapper(async (req, res, next) => {
   const contact = await updateContactService(
-=======
-export const updateContactController = ctrlWrapper(async (req, res, next) => {
-  const contact = await updateContact(
->>>>>>> Stashed changes
     req.params.contactId,
-    req.user._id,
     req.body,
-<<<<<<< Updated upstream
     req.user._id,
     req.file,
-=======
->>>>>>> Stashed changes
   );
+  if (!contact) {
+    return next(createError(404, 'Contact not found'));
+  }
   res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact!',
@@ -133,7 +100,6 @@ export const updateContactController = ctrlWrapper(async (req, res, next) => {
   });
 });
 
-<<<<<<< Updated upstream
 export const deleteContact = ctrlWrapper(async (req, res, next) => {
   const contact = await deleteContactService(
     req.params.contactId,
@@ -142,9 +108,5 @@ export const deleteContact = ctrlWrapper(async (req, res, next) => {
   if (!contact) {
     return next(createError(404, 'Contact not found'));
   }
-=======
-export const deleteContactController = ctrlWrapper(async (req, res, next) => {
-  await deleteContact(req.params.contactId, req.user._id);
->>>>>>> Stashed changes
   res.status(204).send();
 });
