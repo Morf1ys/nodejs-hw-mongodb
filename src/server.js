@@ -6,6 +6,8 @@ import authRouter from './routers/auth.js';
 import createError from 'http-errors';
 import errorHandler from './middleware/errorHandler.js';
 import notFoundHandler from './middleware/notFoundHandler.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../docs/swagger.json' assert { type: 'json' };
 
 function setupServer() {
   const app = express();
@@ -14,6 +16,8 @@ function setupServer() {
   app.use(cookieParser());
   app.use('/auth', authRouter);
   app.use('/contacts', contactsRouter);
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(notFoundHandler);
   app.use(errorHandler);

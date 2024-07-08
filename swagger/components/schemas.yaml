@@ -1,0 +1,27 @@
+Contact:
+  type: object
+  properties:
+    _id:
+      type: string
+    name:
+      type: string
+    phoneNumber:
+      type: string
+    email:
+      type: string
+    isFavourite:
+      type: boolean
+    contactType:
+      type: string
+      enum:
+        - work
+        - home
+        - personal
+    userId:
+      type: string
+    photo:
+      type: string
+  required:
+    - name
+    - phoneNumber
+    - userId
