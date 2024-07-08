@@ -1,0 +1,35 @@
+tags:
+  - Contacts
+summary: Create a new contact
+operationId: createContact
+description: Create a new contact with provided details
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+          phoneNumber:
+            type: string
+          email:
+            type: string
+          isFavourite:
+            type: boolean
+          contactType:
+            type: string
+          photo:
+            type: string
+            format: binary
+responses:
+  201:
+    description: Contact created successfully
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas.yaml#/Contact'
+  400:
+    description: Bad request
