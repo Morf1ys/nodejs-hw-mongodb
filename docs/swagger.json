@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "https://nodejs-hw-7-noja.onrender.com/"
     },
     {
       "url": "<deployed-site-url>"
