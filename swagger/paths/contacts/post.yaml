@@ -6,6 +6,7 @@ description: Create a new contact with provided details
 security:
   - bearerAuth: []
 requestBody:
+  required: true
   content:
     multipart/form-data:
       schema:
@@ -13,17 +14,32 @@ requestBody:
         properties:
           name:
             type: string
+            description: The name of the contact
           phoneNumber:
             type: string
+            description: The phone number of the contact
           email:
             type: string
+            description: The email of the contact
           isFavourite:
             type: boolean
+            description: Is the contact a favourite
+            default: false
           contactType:
             type: string
+            enum:
+              - work
+              - home
+              - personal
+            description: The type of contact
           photo:
             type: string
             format: binary
+            description: The photo of the contact (optional)
+        required:
+          - name
+          - phoneNumber
+
 responses:
   201:
     description: Contact created successfully
