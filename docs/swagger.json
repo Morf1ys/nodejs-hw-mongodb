@@ -277,31 +277,48 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The name of the contact"
                   },
                   "phoneNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The phone number of the contact"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The email of the contact"
                   },
                   "isFavourite": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Is the contact a favourite",
+                    "default": false
                   },
                   "contactType": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ],
+                    "description": "The type of contact"
                   },
                   "photo": {
                     "type": "string",
-                    "format": "binary"
+                    "format": "binary",
+                    "description": "The photo of the contact (optional)"
                   }
-                }
+                },
+                "required": [
+                  "name",
+                  "phoneNumber"
+                ]
               }
             }
           }
